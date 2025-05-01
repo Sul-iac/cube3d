@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/01 14:23:40 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/01 14:25:30 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void ft_minilibx_init() {
 	mlx_s.address = mlx_get_data_addr(mlx_s.mlx_img, &mlx_s.bits_per_pixel,
 										 &mlx_s.line_length, &mlx_s.endian);
 	// draw_triangle(mlx_s);
-	draw_rectangle(mlx_s, 200, 150, 300, 0x00FF0000);
+	draw_cube(mlx_s, 200, 150, 300, 0x00FF0000);
 	mlx_put_image_to_window(mlx_s.mlx_init, mlx_s.mlx_windows, mlx_s.mlx_img, 0, 0);
 	mlx_loop(mlx_s.mlx_init);
 }
