@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 18:31:36 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/01 20:13:06 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/01 20:22:51 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,26 @@ int get_map(char *map) {
 		printf("Error: function get_map: open: cannot open map\n");
 		return(-1);
 	} else {
-		read_map = get_next_line(fd);
+		while(read_map = get_next_line(fd)) {
+			if(!get_next_line(fd)) {
+				printf("Error: function get_map: GNL error\n");
+			}
+			
+		} 
 	}
 }
 
 int parse_map(char *path) {
 	int i = -1;
-	while(path[++i]) {
-		if(strncmp(path, ".cub", 4)) {
-			get_map(path);
-			return(0);
-		} else {
-			printf("Map must be <map>.cub\n");
-			return(-1);
-		}
+	int len;
+
+	len = strlen(path);
+	if(strncmp(path + len - 4, ".cub", 4)) {
+		get_map(path);
+		return(0);
+	} else {
+		printf("Map must be <map>.cub\n");
+		return(-1);
 	}
 	return(-1);
 }
