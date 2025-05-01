@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/04/30 13:01:11 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/01 18:33:05 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct {
 
 void put_pixel(minilibx_struct* data, int x, int y, int color);
 void ft_minilibx_init();
-
+void draw_line(minilibx_struct *mlx_struct, int x0, int y0, int x1, int y1, int color);
 
 
 
