@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/01 19:01:31 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/01 20:09:03 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <fcntl.h>
 # include "../minilibx-linux/mlx.h"
+# include "../libft/libft.h"
 
 typedef struct {
 	void	*mlx_init;
@@ -35,8 +37,8 @@ void put_pixel(minilibx_struct* data, int x, int y, int color);
 void ft_minilibx_init();
 void draw_line(minilibx_struct *mlx_struct, int x0, int y0, int x1, int y1, int color);
 
-int parse_map(char *map);
-int get_map(char *map);
+int parse_map(char *path);
+int get_map(char **map);
 
 
 #endif
