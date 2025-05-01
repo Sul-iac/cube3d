@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/01 18:58:12 by qbarron          ###   ########.fr       */
+/*   Created: 2025/05/01 18:31:36 by qbarron           #+#    #+#             */
+/*   Updated: 2025/05/01 19:12:57 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mainInclude.h"
 
+int get_map(char *map) {
+	int fd;
 
-int main(int argc, char **argv) {
-	if(argc != 2) {
-		printf("Error: bad arguments\n");
+	fd = open(map, STDIN_FILENO);
+	if(fd != 0) { 
+		printf("Error: function get_map: open: cannot open map\n");
 		return(-1);
+	} else {
+		
 	}
-	int parser_ok;
-	parser_ok = parse_map(argv[1]);
-	if(parser_ok != -1) {
-		ft_minilibx_init();
+}
+
+int parse_map(char *map) {
+	int i = 0;
+	while(map[i]) {
+		if(strncmp(map, ".cub", 4)) {
+			get_map(map);
+			return(0);
+		} else {
+			printf("Map must be <map>.cub\n");
+			return(-1);
+		}
 	}
+	return(-1);
 }
