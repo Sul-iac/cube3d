@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 18:31:36 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/06 12:20:54 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/06 12:33:16 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	**create_2d_map(int width, int height, tu_list **rows)
 	y = 0;
 	cur = *rows;
 	len = 0;
-	
 	map = (char **)malloc(sizeof(char *) * (height + 1));
 	if(!map)
 	{
@@ -89,7 +88,6 @@ int get_map(char *path, char ***map, int *height, int *width)
 	get_line = get_next_line(fd);
 	while(get_line)
 	{
-		// printf("line: %s", line);
 		len = ft_strlen(get_line);
 		if(len && get_line[len - 1] == '\n')
 			len--;
@@ -113,12 +111,11 @@ int get_map(char *path, char ***map, int *height, int *width)
 
 int parse_map(char *path)
 {
-	int i = -1;
 	int len;
 	char **map;
 	int	h;
 	int	w;
-	
+
 	len = ft_strlen(path);
 	if(strncmp(path + len - 4, ".cub", 4) == 0)
 	{
