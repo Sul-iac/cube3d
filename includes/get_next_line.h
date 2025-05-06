@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:56:50 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/01 19:33:21 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/02 16:36:36 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
-
+# include "../libft/libft.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
@@ -36,7 +36,6 @@ t_list				*ft_lst_get_last(t_list *stash);
 void				extract_line(t_list *stash, char **line);
 void				generate_line(char **line, t_list *stash);
 void				clean_stash(t_list **stash);
-int					ft_strlen(const char *str);
 void				free_stash(t_list *stash);
 
 #endif
