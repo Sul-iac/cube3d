@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 18:28:41 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/01 18:28:50 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/13 15:24:48 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void put_pixel(minilibx_struct* data, int x, int y, int color) {
 	*(unsigned int*)dst = color;
 }
 
-void draw_line(minilibx_struct *mlx_struct, int x0, int y0, int x1, int y1, int color) {
+void draw_line(minilibx_struct *mlx_struct, int x0, int y0, int x1, int y1, int color)
+{
 	int dx = abs(x1 - x0);
 	int dy = -abs(y1 - y0);
 	int sx;

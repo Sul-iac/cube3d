@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 18:31:36 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 15:09:10 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/13 15:38:47 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static int is_map_line(char *src)
     }
     return (has_wall);
 }
-
 
 int get_map(char *path, char ***map, int *height, int *width)
 {
