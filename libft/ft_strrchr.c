@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
+/*   By: qbarron <qbarron@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 11:56:40 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 13:15:54 by qbarron          ###   ########.fr       */
+/*   Created: 2023/09/24 00:35:47 by qbarron           #+#    #+#             */
+/*   Updated: 2023/10/13 22:48:30 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mainInclude.h"
+#include "libft.h"
 
-int parse_inside_map(char **map, int h, int w) {
-	int i;
-	int j;
+char	*ft_strrchr(const char *str, int c)
+{
+	int	i;
 
-	i = 0;
-	j = 0;
-	while(map[i] < h)
+	i = ft_strlen(str);
+	if (str == NULL)
+		return (NULL);
+	while (i >= 0)
 	{
-		while(map[j] < w)
-		{
-			
-		}
+		if (str[i] == (char)c)
+			return ((char *)&str[i]);
+		i--;
 	}
+	return (NULL);
 }

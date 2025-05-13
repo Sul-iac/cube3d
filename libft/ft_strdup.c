@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 11:56:40 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 13:15:54 by qbarron          ###   ########.fr       */
+/*   Created: 2023/09/25 12:49:25 by qbarron           #+#    #+#             */
+/*   Updated: 2025/05/01 19:18:21 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mainInclude.h"
+#include "libft.h"
 
-int parse_inside_map(char **map, int h, int w) {
-	int i;
-	int j;
+char	*ft_strdup(const char *str)
+{
+	int		i;
+	int		len;
+	char	*dup;
 
 	i = 0;
-	j = 0;
-	while(map[i] < h)
+	len = ft_strlen(str);
+	dup = (char *)malloc(sizeof(char) * len + 1);
+	if (dup == NULL)
 	{
-		while(map[j] < w)
-		{
-			
-		}
+		dup = (char *)malloc(1);
+		if (dup == NULL)
+			return (NULL);
+		dup[0] = '\0';
+		return (dup);
 	}
+	while (str[i] != '\0')
+	{
+		dup[i] = str[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }

@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 18:31:36 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 12:05:12 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/13 12:33:50 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int get_map(char *path, char ***map, int *height, int *width)
 	*width = 0;
 	*height = 0;
 	fd = open(path, O_RDONLY);
+
 	if(fd == -1)
 	{ 
 		printf("Error: function get_map: open: cannot open map\n");
@@ -123,7 +124,7 @@ int parse_map(char *path)
 			printf("error with get_map\n");
 			return(-1);
 		}
-		parse_inside_map(&map, &h, &w);
+		parse_inside_map(map, h, w);
 		return(0);
 	} 
 	printf("Map must be <map>.cub\n");

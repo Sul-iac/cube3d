@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 11:56:40 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 13:15:54 by qbarron          ###   ########.fr       */
+/*   Created: 2023/10/11 02:05:50 by qbarron           #+#    #+#             */
+/*   Updated: 2025/05/01 19:38:42 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mainInclude.h"
+#include "libft.h"
 
-int parse_inside_map(char **map, int h, int w) {
-	int i;
-	int j;
+tu_list	*ft_lstnew(void *content)
+{
+	tu_list	*node;
 
-	i = 0;
-	j = 0;
-	while(map[i] < h)
-	{
-		while(map[j] < w)
-		{
-			
-		}
-	}
+	node = malloc(sizeof(t_list));
+	node->content = content;
+	node->next = NULL;
+	return (node);
 }

@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 11:56:40 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 13:15:54 by qbarron          ###   ########.fr       */
+/*   Created: 2023/10/02 18:01:04 by qbarron           #+#    #+#             */
+/*   Updated: 2025/05/01 19:17:42 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mainInclude.h"
+#include "libft.h"
 
-int parse_inside_map(char **map, int h, int w) {
-	int i;
-	int j;
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	unsigned char	*a;
+	unsigned char	*b;
+	unsigned int	i;
 
-	i = 0;
-	j = 0;
-	while(map[i] < h)
+	a = (unsigned char *)dst;
+	b = (unsigned char *)src;
+	i = -1;
+	if (a == b)
+		return (dst);
+	if (a < b || a > b + len)
 	{
-		while(map[j] < w)
-		{
-			
-		}
+		while (++i < len)
+			a[i] = b[i];
 	}
+	else
+	{
+		i = len + 1;
+		while (--i)
+			a[i - 1] = b[i - 1];
+	}
+	return (dst);
 }

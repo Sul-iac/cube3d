@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 11:56:40 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 13:15:54 by qbarron          ###   ########.fr       */
+/*   Created: 2023/09/21 20:52:45 by qbarron           #+#    #+#             */
+/*   Updated: 2025/05/01 19:16:17 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mainInclude.h"
+#include "libft.h"
 
-int parse_inside_map(char **map, int h, int w) {
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while(map[i] < h)
-	{
-		while(map[j] < w)
-		{
-			
-		}
-	}
+int	ft_isalpha(int c)
+{
+	if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z'))
+		return (1);
+	return (0);
 }

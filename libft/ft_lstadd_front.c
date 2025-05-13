@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 11:56:40 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 13:15:54 by qbarron          ###   ########.fr       */
+/*   Created: 2023/10/11 10:27:41 by qbarron           #+#    #+#             */
+/*   Updated: 2025/05/02 16:34:14 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mainInclude.h"
+#include "libft.h"
 
-int parse_inside_map(char **map, int h, int w) {
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while(map[i] < h)
+void	ft_lstadd_front(tu_list **alst, tu_list *new)
+{
+	if (alst && new)
 	{
-		while(map[j] < w)
-		{
-			
-		}
+		new->next = *alst;
+		*alst = new;
 	}
 }

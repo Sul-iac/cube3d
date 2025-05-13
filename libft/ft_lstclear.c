@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 11:56:40 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 13:15:54 by qbarron          ###   ########.fr       */
+/*   Created: 2023/10/15 13:01:02 by qbarron           #+#    #+#             */
+/*   Updated: 2025/05/06 08:45:42 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mainInclude.h"
+#include "libft.h"
 
-int parse_inside_map(char **map, int h, int w) {
-	int i;
-	int j;
+void	ft_lstclear(tu_list **lst, void (*del)(void*))
+{
+	tu_list	*next;
+	tu_list	*current;
 
-	i = 0;
-	j = 0;
-	while(map[i] < h)
+	current = *lst;
+	if (!lst || !del)
+		return ;
+	while (current)
 	{
-		while(map[j] < w)
-		{
-			
-		}
+		next = current->next;
+		del(current->content);
+		free(current);
+		current = next;
 	}
+	(*lst) = NULL;
 }
