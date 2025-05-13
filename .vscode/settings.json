@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "maininclude.h": "c",
+        "math.h": "c"
+    }
+}

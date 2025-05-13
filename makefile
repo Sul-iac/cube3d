@@ -4,7 +4,7 @@ CFLAGS  := -Iincludes
 SRCDIR  := src
 INCDIR  := includes
 
-SRCS    := $(wildcard $(SRCDIR)/*.c)
+SRCS    := $(wildcard $(SRCDIR)/*.c) $(wildcard $(SRCDIR)/draw_utils/*.c)
 OBJS    := $(SRCS:.c=.o)
 
 MLXDIR  := minilibx-linux
