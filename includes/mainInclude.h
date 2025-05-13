@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/06 12:02:01 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/13 12:10:29 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ void draw_line(minilibx_struct *mlx_struct, int x0, int y0, int x1, int y1, int 
 
 int parse_map(char *path);
 int get_map(char *path, char ***map, int *height, int *width);
+int parse_inside_map(char ***map, int *h, int *w);
+
 
 #endif

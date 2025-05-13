@@ -6,12 +6,11 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 18:31:36 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/06 12:33:16 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/13 12:05:12 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mainInclude.h"
-
 
 char	*ft_strcpy_and_fill(char *dest, char *src, int width, int len)
 {
@@ -124,6 +123,7 @@ int parse_map(char *path)
 			printf("error with get_map\n");
 			return(-1);
 		}
+		parse_inside_map(&map, &h, &w);
 		return(0);
 	} 
 	printf("Map must be <map>.cub\n");
