@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 12:15:17 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/13 14:55:44 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ void draw_line(minilibx_struct *mlx_struct, int x0, int y0, int x1, int y1, int 
 
 int parse_map(char *path);
 int get_map(char *path, char ***map, int *height, int *width);
-int parse_inside_map(char **map, int h, int w);
+int validate_map(char **map, int h, int w);
+int check_closed(char **map, int width, int height, int px, int py);
+int flood(char **map_copy, int x, int y, int w, int h);
+int check_borders(char **map, int width, int height);
+int check_character(char **map, int w, int h, int *px, int *py, int *pdir);
+static int is_map_line(char *s);
 
 
 #endif
