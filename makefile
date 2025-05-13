@@ -8,12 +8,19 @@ SRCS    := $(wildcard $(SRCDIR)/*.c)
 OBJS    := $(SRCS:.c=.o)
 
 MLXDIR  := minilibx-linux
-MLXLIB  := $(MLXDIR)/libmlx_Linux.a
-MLXFLAG := -L$(MLXDIR) -lmlx_Linux -lXext -lX11
+MLXLIB  := $(MLXDIR)/libmlx.a
+MLXFLAG := -L$(MLXDIR) -lmlx
 
 LIBFTDIR := libft
 LIBFTLIB := $(LIBFTDIR)/libft.a
 LIBFTFLAG:= -L$(LIBFTDIR) -lft
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+    MLXFLAG += -framework OpenGL -framework AppKit
+else
+    MLXFLAG += -lXext -lX11
+endif
 
 SYSLIBS := -lm
 

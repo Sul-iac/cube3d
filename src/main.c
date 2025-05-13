@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
+/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/01 18:58:12 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/13 13:36:33 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 
 int main(int argc, char **argv) {
-	if(argc != 2) {
-		printf("Error: bad arguments\n");
-		return(-1);
-	}
-	int parser_ok;
-	parser_ok = parse_map(argv[1]);
-	if(parser_ok != -1) {
-		ft_minilibx_init();
-	}
+	/*
+		//// PARSER.
+		if(argc != 2) {
+			printf("Error: bad arguments\n");
+			return(-1);
+		}
+		int parser_ok;
+		parser_ok = parse_map(argv[1]);
+		if(parser_ok != -1) {
+			ft_minilibx_init();
+		}
+	*/
+	
+	
+	printf("[DEBUG] 1");
 }
