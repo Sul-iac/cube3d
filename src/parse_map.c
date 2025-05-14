@@ -6,13 +6,13 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:56:40 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 15:08:39 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/14 11:55:01 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mainInclude.h"
 
-int check_character(char **map, int w, int h, int *px, int *py, int *pdir)
+int check_character(char **map, int w, int h, int *px, int *py, char *pdir)
 {
 	int		x;
 	int		y;
@@ -117,17 +117,13 @@ int check_closed(char **map, int width, int height, int px, int py)
 	return(0);
 }
 
-int validate_map(char **map, int h, int w)
+int validate_map(t_game *game_st, char **map, int h, int w)
 {
-	int		px;
-	int		py;
-	int		pdir;
-	
-	if(check_character(map, w, h, &px, &py, &pdir) == -1)
+	if(check_character(map, w, h, &game_st->px, &game_st->py, &game_st->pdir) == -1)
 		return(-1);
 	if(check_borders(map, w, h) == -1)
 		return(-1);
-	if(check_closed(map, w, h, px, py) == -1)
+	if(check_closed(map, w, h, game_st->px, game_st->py) == -1)
 		return(-1);
 	return(0);
 }

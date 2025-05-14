@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 18:31:36 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 15:38:47 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/14 11:55:47 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,22 +136,19 @@ int get_map(char *path, char ***map, int *height, int *width)
 	return(0);
 }
 
-int parse_map(char *path)
+int parse_map(char *path, t_game *game_st)
 {
 	int len;
-	char **map;
-	int	h;
-	int	w;
 
 	len = ft_strlen(path);
 	if(strncmp(path + len - 4, ".cub", 4) == 0)
 	{
-		if(get_map(path, &map, &h, &w) == -1)
+		if(get_map(path, &game_st->map, &game_st->map_h, &game_st->map_w) == -1)
 		{
 			printf("error with get_map\n");
 			return(-1);
 		}
-		if(validate_map(map, h, w) == -1)
+		if(validate_map(game_st, game_st->map, game_st->map_h, game_st->map_w) == -1)
 			return(-1);
 		return(0);
 	}
