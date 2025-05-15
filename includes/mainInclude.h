@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mainInclude.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
+/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/15 13:11:19 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/15 15:09:29 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 # define COL_EMPTY  0x00000000 
 # define COL_PLAYER 0x00FF0000
 
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_ESC 53
+
 typedef struct
 {
 	void	*ptr;	
@@ -40,6 +46,19 @@ typedef struct
 	int		bits_per_pixel;
 	
 }				minilibx_struct;
+
+typedef struct s_player
+{
+	float	x;
+	float	y;
+	float	dir_x;
+	float	dir_y;
+	float	move_speed;
+	int		move_forward;
+	int		move_backward;
+	int		move_left;
+	int		move_right;
+}				t_player;
 
 typedef struct 	s_game
 {
@@ -52,6 +71,7 @@ typedef struct 	s_game
 	void			*mlx_init;
 	void			*mlx_windows;
 	minilibx_struct	mini_map;
+	t_player		player;
 }				t_game;
 
 void put_pixel(minilibx_struct* data, int x, int y, int color);
@@ -70,7 +90,9 @@ int check_borders(char **map, int width, int height);
 int check_character(char **map, int w, int h, int *px, int *py, char *pdir);
 void render_minimap(char **map, int w, int h, minilibx_struct *mm, int px, int py);
 
-
+int key_press(int keycode, t_game *game_st);
+int key_release(int keycode, t_game *game_st);
+void update_player_position(t_game *game_st);
 
 static int is_map_line(char *s);
 
