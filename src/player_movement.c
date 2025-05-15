@@ -6,7 +6,7 @@
 /*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:30:42 by vorace32          #+#    #+#             */
-/*   Updated: 2025/05/15 15:14:59 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/15 15:46:31 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	update_player_position(t_game *game_st)
 		if (!is_wall(game_st, game_st->player.x, new_y))
 			game_st->player.y = new_y;
 	}
-	if (game_st->player.move_right)
+	if (game_st->player.move_left)
 	{
 		new_x = game_st->player.x + game_st->player.dir_y * game_st->player.move_speed;
 		new_y = game_st->player.y - game_st->player.dir_x * game_st->player.move_speed;
@@ -90,7 +90,7 @@ void	update_player_position(t_game *game_st)
 		if (!is_wall(game_st, game_st->player.x, new_y))
 			game_st->player.y = new_y;
 	}
-	if (game_st->player.move_left)
+	if (game_st->player.move_right)
 	{
 		new_x = game_st->player.x - game_st->player.dir_y * game_st->player.move_speed;
 		new_y = game_st->player.y + game_st->player.dir_x * game_st->player.move_speed;
