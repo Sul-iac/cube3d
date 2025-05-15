@@ -1,6 +1,6 @@
 NAME    := cub3D
 CC      := cc
-CFLAGS  := -Iincludes
+CFLAGS  := -Iincludes -std=c99
 SRCDIR  := src
 INCDIR  := includes
 

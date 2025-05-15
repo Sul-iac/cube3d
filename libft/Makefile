@@ -6,7 +6,7 @@
 #    By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/14 00:21:31 by qbarron           #+#    #+#              #
-#    Updated: 2025/05/06 08:53:14 by qbarron          ###   ########.fr        #
+#    Updated: 2025/05/15 15:55:44 by qbarron          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ ft_lstclear.c
 
 SRCS = $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_FILES:.c=.o))
-BONUS_SRCS = $(addprefix $(SRC_PATH)/, $(BONUS_FILES))
 
 .PHONY: all clean fclean re bonus
 
