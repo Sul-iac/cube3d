@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/15 19:34:27 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/15 20:52:17 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,17 @@
 # define COL_EMPTY  0x00000000 
 # define COL_PLAYER 0x00FF0000
 
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_ESC 53
+// # define KEY_W 13
+// # define KEY_A 0
+// # define KEY_S 1
+// # define KEY_D 2
+// # define KEY_ESC 53
+
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_ESC 65307
 
 typedef struct
 {
@@ -64,13 +70,20 @@ typedef struct s_player
 
 typedef struct s_raycast
 {
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
 	double	plan_x; // le rayon 2d pour le plan cam
-	double	plan_y;
+	double	plan_y; // la FOV en gros
 	double	time;
 	double	old_time;
 	double	camera_x; // coord x sur le plan
 	double	ray_dir_x;
 	double	ray_dir_y;
+	double	wall_dist;
 }				t_raycast;
 
 typedef struct 	s_game
@@ -118,7 +131,7 @@ void update_player_position(t_game *game_st);
 
 
 // RC
-int render_raycast(t_game *game_st, t_raycast raycast);
+int render_raycast(t_game *game_st);
 
 
 #endif

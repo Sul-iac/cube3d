@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
+/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:30:42 by vorace32          #+#    #+#             */
-/*   Updated: 2025/05/15 15:46:31 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/15 21:03:28 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,4 @@ void	update_player_position(t_game *game_st)
 	// on update la position du joueur 
 	game_st->px = (int)game_st->player.x;
 	game_st->py = (int)game_st->player.y;
-} 
+}

@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/15 19:34:15 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/15 19:36:59 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 int loop_hook(void *param)
 {
 	t_game		*game_st;
-	t_raycast	raycast;
 	
 	game_st = (t_game *)param;
 	update_player_position(game_st);
-	render_raycast(game_st, raycast);
+	render_raycast(game_st);
 	render_minimap(game_st->map, game_st->map_w, 
 					game_st->map_h, &game_st->mini_map, 
 					game_st->px, game_st->py);
