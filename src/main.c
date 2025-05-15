@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
+/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/14 12:33:28 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/15 14:27:03 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ int main(int argc, char **argv)
 	loop_hook(&game_st);
 	mlx_loop_hook(game_st.mlx_init, (int (*)(void))loop_hook, &game_st);
 	mlx_loop(game_st.mlx_init);
+	return(0);
 }
