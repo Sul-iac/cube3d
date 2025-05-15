@@ -3,41 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
+/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 15:18:46 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:33:28 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mainInclude.h"
-#include <math.h>
 
-char map_debug[6][9] = {
-	"#########",
-	"#xxxxxxx#",
-	"#xxxxxxx#",
-	"#xxxxNxx#",
-	"#xxxxxxx#",
-	"#########"
-};
+int loop_hook(void *param)
+{
+	t_game *game_st;
+	
+	game_st = (t_game *)param;
+	render_minimap(game_st->map, game_st->map_w, 
+					game_st->map_h, &game_st->mini_map, 
+					game_st->px, game_st->py);
+	mlx_put_image_to_window(game_st->mlx_init, game_st->mlx_windows, game_st->mini_map.ptr, 8, 8);
+	return(0);
+}
 
-int main(int argc, char **argv) {
-	
-	printf("[DEBUG] 1\n");
-	
-	int width = 600;
-	int height = 400;
-	
+t_game init_struct(t_game *game_st)
+{
+	ft_bzero(game_st, sizeof(t_game));
+}
+
+int main(int argc, char **argv)
+{
+	t_game			game_st;
 	minilibx_struct mlx_s;
-	mlx_s.mlx_init = mlx_init();
-	mlx_s.mlx_windows = mlx_new_window(mlx_s.mlx_init, width, height, "Cube3D");
-	mlx_s.mlx_img = mlx_new_image(mlx_s.mlx_init, width, height);
-	mlx_s.address = mlx_get_data_addr(mlx_s.mlx_img, &mlx_s.bits_per_pixel,
-										 &mlx_s.line_length, &mlx_s.endian);
 	
-	mlx_put_image_to_window(mlx_s.mlx_init, mlx_s.mlx_windows, mlx_s.mlx_img, 0, 0);
-	mlx_loop(mlx_s.mlx_init);
-	
-	return 0;
+	if(argc != 2) {
+		printf("Error: bad arguments\n");
+		return(-1);
+	}
+	init_struct(&game_st);
+	if(parse_map(argv[1], &game_st) == -1)
+		return(printf("error: main: cannot parse map\n"), -1);
+	if(ft_minilibx_init(&game_st) == -1)
+		return(printf("error: main: mlx_init error\n"), -1);
+	loop_hook(&game_st);
+	mlx_loop_hook(game_st.mlx_init, (int (*)(void))loop_hook, &game_st);
+	mlx_loop(game_st.mlx_init);
 }

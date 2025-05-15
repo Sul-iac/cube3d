@@ -3,22 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
+/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 18:27:39 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/13 14:07:38 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:18:29 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mainInclude.h"
 
-void ft_minilibx_init() {
-	minilibx_struct mlx_s;
-	mlx_s.mlx_init = mlx_init();
-	mlx_s.mlx_windows = mlx_new_window(mlx_s.mlx_init, 900, 700, "Cube3D");
-	mlx_s.mlx_img = mlx_new_image(mlx_s.mlx_init, 900, 700);
-	mlx_s.address = mlx_get_data_addr(mlx_s.mlx_img, &mlx_s.bits_per_pixel,
-										 &mlx_s.line_length, &mlx_s.endian);
-	mlx_put_image_to_window(mlx_s.mlx_init, mlx_s.mlx_windows, mlx_s.mlx_img, 0, 0);
-	mlx_loop(mlx_s.mlx_init);
+int ft_minilibx_init(t_game *game_st)
+{
+	game_st->mlx_init = mlx_init();
+	if(!game_st->mlx_init)
+		return(-1);
+	game_st->mlx_windows = mlx_new_window(game_st->mlx_init, 900, 700, "Cube3D");
+	if(!game_st->mlx_windows)
+		return(-1);
+	game_st->mini_map.ptr = mlx_new_image(game_st->mlx_init, 900, 700);
+	game_st->mini_map.address = mlx_get_data_addr(game_st->mini_map.ptr, &game_st->mini_map.bits_per_pixel,
+										 &game_st->mini_map.line_length, &game_st->mini_map.endian);
+	return(0);
 }
