@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
+/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/15 15:44:00 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/15 19:34:15 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int loop_hook(void *param)
 {
-	t_game *game_st;
+	t_game		*game_st;
+	t_raycast	raycast;
 	
 	game_st = (t_game *)param;
 	update_player_position(game_st);
+	render_raycast(game_st, raycast);
 	render_minimap(game_st->map, game_st->map_w, 
 					game_st->map_h, &game_st->mini_map, 
 					game_st->px, game_st->py);
@@ -78,7 +80,6 @@ int main(int argc, char **argv)
 	init_player_direction(&game_st);
 	mlx_hook(game_st.mlx_windows, 2, 1L << 0, key_press, &game_st);
 	mlx_hook(game_st.mlx_windows, 3, 1L << 1, key_release, &game_st);
-	loop_hook(&game_st);
 	mlx_loop_hook(game_st.mlx_init, (int (*)(void))loop_hook, &game_st);
 	mlx_loop(game_st.mlx_init);
 	return(0);
