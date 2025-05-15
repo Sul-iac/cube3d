@@ -6,7 +6,7 @@
 /*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/15 15:11:06 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/15 15:44:00 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,34 @@ t_game init_struct(t_game *game_st)
 {
 	ft_bzero(game_st, sizeof(t_game));
 	game_st->player.move_speed = 0.1;
-	game_st->player.dir_x = 1;
-	game_st->player.dir_y = 0;
 	game_st->player.move_forward = 0;
 	game_st->player.move_backward = 0;
 	game_st->player.move_left = 0;
 	game_st->player.move_right = 0;
+}
+
+void	init_player_direction(t_game *game_st)
+{
+	if (game_st->pdir == 'N')
+	{
+		game_st->player.dir_x = 0;
+		game_st->player.dir_y = -1;
+	}
+	else if (game_st->pdir == 'S')
+	{
+		game_st->player.dir_x = 0;
+		game_st->player.dir_y = 1;
+	}
+	else if (game_st->pdir == 'E')
+	{
+		game_st->player.dir_x = 1;
+		game_st->player.dir_y = 0;
+	}
+	else if (game_st->pdir == 'W')
+	{
+		game_st->player.dir_x = -1;
+		game_st->player.dir_y = 0;
+	}
 }
 
 int main(int argc, char **argv)
@@ -53,7 +75,7 @@ int main(int argc, char **argv)
 		return(printf("error: main: mlx_init error\n"), -1);
 	game_st.player.x = (float)game_st.px;
 	game_st.player.y = (float)game_st.py;
-	// hook des touches ici, jai pas capte le 1L << 0 et 1L << 1 mais j'ai vu ca sur : https://harm-smits.github.io/42docs/libs/minilibx/events.html#:~:text=(1L%3C%3C0)-,KeyPressMask,-(1L%3C%3C13)
+	init_player_direction(&game_st);
 	mlx_hook(game_st.mlx_windows, 2, 1L << 0, key_press, &game_st);
 	mlx_hook(game_st.mlx_windows, 3, 1L << 1, key_release, &game_st);
 	loop_hook(&game_st);
