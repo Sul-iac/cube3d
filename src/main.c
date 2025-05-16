@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/15 19:36:59 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/16 19:11:06 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@ int loop_hook(void *param)
 	
 	game_st = (t_game *)param;
 	update_player_position(game_st);
+	ft_memset(game_st->mlx_struct.address, 0, 
+  	  game_st->mlx_struct.line_length * game_st->mlx_struct.win_h);
 	render_raycast(game_st);
 	render_minimap(game_st->map, game_st->map_w, 
-					game_st->map_h, &game_st->mini_map, 
-					game_st->px, game_st->py);
-	mlx_put_image_to_window(game_st->mlx_init, game_st->mlx_windows, game_st->mini_map.ptr, 8, 8);
+		game_st->map_h, &game_st->mlx_struct, 
+		game_st->px, game_st->py);
+	mlx_put_image_to_window(game_st->mlx_init, game_st->mlx_windows, game_st->mlx_struct.ptr, 0, 0);
 	return(0);
 }
 
-t_game init_struct(t_game *game_st)
+void init_struct(t_game *game_st)
 {
 	ft_bzero(game_st, sizeof(t_game));
 	game_st->player.move_speed = 0.1;
@@ -74,6 +76,12 @@ int main(int argc, char **argv)
 		return(printf("error: main: cannot parse map\n"), -1);
 	if(ft_minilibx_init(&game_st) == -1)
 		return(printf("error: main: mlx_init error\n"), -1);
+	// int i = 0;
+	// while(game_st.map[i])
+	// 	i++;
+	printf("map_w: %d\n", game_st.map_w);
+	printf("map_h: %d\n", game_st.map_h);
+
 	game_st.player.x = (float)game_st.px;
 	game_st.player.y = (float)game_st.py;
 	init_player_direction(&game_st);

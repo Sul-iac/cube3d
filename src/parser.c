@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 18:31:36 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/14 11:55:47 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/16 18:49:42 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ int parse_map(char *path, t_game *game_st)
 	len = ft_strlen(path);
 	if(strncmp(path + len - 4, ".cub", 4) == 0)
 	{
+		printf("map_w: %d\n", game_st->map_w);
+		printf("map_h: %d\n", game_st->map_h);
 		if(get_map(path, &game_st->map, &game_st->map_h, &game_st->map_w) == -1)
 		{
 			printf("error with get_map\n");

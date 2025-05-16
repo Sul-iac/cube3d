@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/16 15:44:15 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/16 17:30:58 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_raycast
 	int		map_y;
 	int		step_x;
 	int		step_y;
+	int		line_h;
 	double	side_dist_x;
 	double	side_dist_y;
 	double	delta_dist_x;
@@ -101,7 +102,7 @@ typedef struct 	s_game
 	void			*mlx_init;
 	void			*mlx_windows;
 	t_player		player;
-	minilibx_struct	mini_map;
+	minilibx_struct	mlx_struct;
 }				t_game;
 
 
@@ -109,10 +110,12 @@ typedef struct 	s_game
 void put_pixel(minilibx_struct* data, int x, int y, int color);
 int ft_minilibx_init(t_game *game_st);
 int loop_hook(void *param);
-void draw_line(minilibx_struct *mlx_struct, int x0, int y0, int x1, int y1, int color);
+void draw_vertical_line(minilibx_struct *mlx_s, int x, int y_start, int y_end, int color);
+// void draw_line(minilibx_struct *mlx_struct, int x0, int y0, int x1, int y1, int color);
+
 
 //init
-t_game init_struct(t_game *game_st);
+void init_struct(t_game *game_st);
 
 // parser
 int parse_map(char *path, t_game *game_st);
