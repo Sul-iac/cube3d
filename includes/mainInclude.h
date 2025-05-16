@@ -6,7 +6,7 @@
 /*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/16 16:52:36 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:21:28 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void put_pixel(minilibx_struct* data, int x, int y, int color);
 int ft_minilibx_init(t_game *game_st);
 int loop_hook(void *param);
 void draw_line(minilibx_struct *mlx_struct, int x0, int y0, int x1, int y1, int color);
-
+void draw_circle(minilibx_struct *img, int grid_x, int grid_y, int col);
 //init
 t_game init_struct(t_game *game_st);
 
@@ -127,7 +127,7 @@ int check_character(char **map, int w, int h, int *px, int *py, char *pdir);
 static int is_map_line(char *s);
 
 // evident
-void render_minimap(char **map, int w, int h, minilibx_struct *mm, int px, int py);
+void render_minimap(char **map, int w, int h, minilibx_struct *mm, float player_x, float player_y);
 
 //hook
 int key_press(int keycode, t_game *game_st);

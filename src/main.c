@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
+/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/15 19:36:59 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/16 17:21:28 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int loop_hook(void *param)
 	render_raycast(game_st);
 	render_minimap(game_st->map, game_st->map_w, 
 					game_st->map_h, &game_st->mini_map, 
-					game_st->px, game_st->py);
+					game_st->player.x, game_st->player.y);
 	mlx_put_image_to_window(game_st->mlx_init, game_st->mlx_windows, game_st->mini_map.ptr, 8, 8);
 	return(0);
 }

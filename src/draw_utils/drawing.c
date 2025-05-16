@@ -6,7 +6,7 @@
 /*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:25:31 by vorace32          #+#    #+#             */
-/*   Updated: 2025/05/13 14:37:54 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:11:41 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,23 @@ void draw_filled_rect(minilibx_struct *mlx_s, int x, int y, int width, int heigh
 	}
 }
 
-void draw_circle(minilibx_struct *mlx_s, int x, int y, int radius, int color)
+void draw_circle(minilibx_struct *img, int grid_x, int grid_y, int col)
 {
-	for (int i = 0; i < 360; i++)
-	{
-		draw_line(mlx_s, x, y, x + radius * cos(i), y + radius * sin(i), color);
-	}
+    int px, py;
+    float cx = grid_x * TILE + TILE / 2.0f;
+    float cy = grid_y * TILE + TILE / 2.0f;
+    float radius = TILE / 2.0f - 1.0f;
+    float dx, dy, dist;
+
+    for (py = 0; py < TILE; py++)
+    {
+        for (px = 0; px < TILE; px++)
+        {
+            dx = px + 0.5f - TILE / 2.0f;
+            dy = py + 0.5f - TILE / 2.0f;
+            dist = dx * dx + dy * dy;
+            if (dist <= radius * radius)
+                put_pixel(img, grid_x * TILE + px, grid_y * TILE + py, col);
+        }
+    }
 }
