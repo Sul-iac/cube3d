@@ -6,7 +6,7 @@
 /*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:56:28 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/16 17:27:32 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/17 00:39:22 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,35 +45,31 @@ void	render_minimap(char **map, int w, int h, minilibx_struct *mm,
 	int		dx;
 	int		dy;
 	int		dist2;
+	int		radius;
+	int		screen_x;
+	int		screen_y;
 
-	center_x = 60;
-	center_y = 60;
-	py = 0;
-	while (py < 120)
+	screen_x = 80;
+	screen_y = 80;
+	radius = 60;
+	center_x = 0;
+	center_y = 0;
+
+	py = -radius;
+	while (py <= radius)
 	{
-		px = 0;
-		while (px < 120)
+		px = -radius;
+		while (px <= radius)
 		{
-			put_pixel(mm, px, py, COL_EMPTY);
-			px++;
-		}
-		py++;
-	}
-	py = 0;
-	while (py < 120)
-	{
-		px = 0;
-		while (px < 120)
-		{
-			dx = px - center_x;
-			dy = py - center_y;
-			if (dx * dx + dy * dy > 60 * 60)
+			dx = px;
+			dy = py;
+			if (dx * dx + dy * dy > radius * radius)
 			{
 				px++;
-				continue ;
+				continue;
 			}
-			map_x = player_x + dx / 25.0f;
-			map_y = player_y + dy / 25.0f;
+			map_x = player_x + px / 15.0f;
+			map_y = player_y + py / 15.0f;
 			tile_x = (int)map_x;
 			tile_y = (int)map_y;
 			if (tile_x < 0 || tile_y < 0 || tile_x >= w || tile_y >= h)
@@ -86,36 +82,36 @@ void	render_minimap(char **map, int w, int h, minilibx_struct *mm,
 				color = COL_FLOOR;
 			else
 				color = COL_EMPTY;
-			put_pixel(mm, px, py, color);
+			put_pixel(mm, screen_x + px, screen_y + py, color);
 			px++;
 		}
 		py++;
 	}
-	py = center_y - 2;
-	while (py <= center_y + 2)
+	
+	py = -2;
+	while (py <= 2)
 	{
-		px = center_x - 2;
-		while (px <= center_x + 2)
+		px = -2;
+		while (px <= 2)
 		{
-			if ((px - center_x) * (px - center_x) + (py - center_y) * (py
-					- center_y) <= 4)
-				put_pixel(mm, px, py, COL_PLAYER);
+			if (px * px + py * py <= 4)
+				put_pixel(mm, screen_x + px, screen_y + py, COL_PLAYER);
 			px++;
 		}
 		py++;
 	}
-	py = 0;
-	while (py < 120)
+	
+	py = -radius;
+	while (py <= radius)
 	{
-		px = 0;
-		while (px < 120)
+		px = -radius;
+		while (px <= radius)
 		{
-			dx = px - center_x;
-			dy = py - center_y;
+			dx = px;
+			dy = py;
 			dist2 = dx * dx + dy * dy;
-			if (dist2 >= (60 - 1) * (60 - 1)
-				&& dist2 <= 60 * 60)
-				put_pixel(mm, px, py, 0x00FFFFFF);
+			if (dist2 >= (radius - 1) * (radius - 1) && dist2 <= radius * radius)
+				put_pixel(mm, screen_x + px, screen_y + py, 0x00FFFFFF);
 			px++;
 		}
 		py++;
