@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/16 17:30:58 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/16 19:18:41 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@
 # define COL_EMPTY  0x00000000 
 # define COL_PLAYER 0x00FF0000
 
-// # define KEY_W 13
-// # define KEY_A 0
-// # define KEY_S 1
-// # define KEY_D 2
-// # define KEY_ESC 53
+// MAC 
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_ESC 53
 
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_ESC 65307
+// SULLLIIIACCCCC 
+// # define KEY_W 119
+// # define KEY_A 97
+// # define KEY_S 115
+// # define KEY_D 100
+// # define KEY_ESC 65307
 
 typedef struct
 {
@@ -128,7 +130,7 @@ int check_character(char **map, int w, int h, int *px, int *py, char *pdir);
 static int is_map_line(char *s);
 
 // evident
-void render_minimap(char **map, int w, int h, minilibx_struct *mm, int px, int py);
+void render_minimap(char **map, int w, int h, minilibx_struct *mm, float player_x, float player_y);
 
 //hook
 int key_press(int keycode, t_game *game_st);

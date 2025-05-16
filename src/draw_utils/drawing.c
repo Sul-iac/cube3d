@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:25:31 by vorace32          #+#    #+#             */
-/*   Updated: 2025/05/16 17:59:01 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/16 19:19:41 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,23 @@ void draw_vertical_line(minilibx_struct *mlx_s, int x, int y_start, int y_end, i
 // 	}
 // }
 
-// void draw_circle(minilibx_struct *mlx_s, int x, int y, int radius, int color)
-// {
-// 	for (int i = 0; i < 360; i++)
-// 	{
-// 		draw_line(mlx_s, x, y, x + radius * cos(i), y + radius * sin(i), color);
-// 	}
-// }
+void draw_circle(minilibx_struct *img, int grid_x, int grid_y, int col)
+{
+    int px, py;
+    float cx = grid_x * TILE + TILE / 2.0f;
+    float cy = grid_y * TILE + TILE / 2.0f;
+    float radius = TILE / 2.0f - 1.0f;
+    float dx, dy, dist;
+
+    for (py = 0; py < TILE; py++)
+    {
+        for (px = 0; px < TILE; px++)
+        {
+            dx = px + 0.5f - TILE / 2.0f;
+            dy = py + 0.5f - TILE / 2.0f;
+            dist = dx * dx + dy * dy;
+            if (dist <= radius * radius)
+                put_pixel(img, grid_x * TILE + px, grid_y * TILE + py, col);
+        }
+    }
+}
