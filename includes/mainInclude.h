@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/15 20:52:17 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/16 15:44:15 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,12 @@ typedef struct s_player
 
 typedef struct s_raycast
 {
+	int		hit;
+	int		side;
 	int		map_x;
 	int		map_y;
+	int		step_x;
+	int		step_y;
 	double	side_dist_x;
 	double	side_dist_y;
 	double	delta_dist_x;
