@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mainInclude.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
+/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/16 19:18:41 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/16 23:48:26 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct s_player
 	float	y;
 	float	dir_x;
 	float	dir_y;
+	float	plane_x;
+	float	plane_y;
 	float	move_speed;
 }				t_player;
 
@@ -83,11 +85,9 @@ typedef struct s_raycast
 	double	side_dist_y;
 	double	delta_dist_x;
 	double	delta_dist_y;
-	double	plan_x; // le rayon 2d pour le plan cam
-	double	plan_y; // la FOV en gros
 	double	time;
 	double	old_time;
-	double	camera_x; // coord x sur le plan
+	double	camera_x;
 	double	ray_dir_x;
 	double	ray_dir_y;
 	double	wall_dist;
@@ -105,6 +105,8 @@ typedef struct 	s_game
 	void			*mlx_windows;
 	t_player		player;
 	minilibx_struct	mlx_struct;
+	int				floor_color;
+	int				ceiling_color;
 }				t_game;
 
 

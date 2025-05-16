@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
+/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 18:31:36 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/16 18:49:42 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/16 23:47:25 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,79 @@ int get_map(char *path, char ***map, int *height, int *width)
 	return(0);
 }
 
+static int	extract_rgb(char *line)
+{
+	int		r;
+	int		g;
+	int		b;
+	char	**split;
+	char	*trimmed;
+
+	trimmed = ft_strtrim(line, " \t\n\r");
+	if (!trimmed)
+		return (-1);
+	split = ft_split(trimmed, ',');
+	free(trimmed);
+	if (!split || !split[0] || !split[1] || !split[2])
+		return (-1);
+	r = ft_atoi(split[0]);
+	g = ft_atoi(split[1]);
+	b = ft_atoi(split[2]);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+	{
+		while (split && *split)
+			free(*split++);
+		free(split - 3);
+		return (-1);
+	}
+	while (split && *split)
+		free(*split++);
+	free(split - 3);
+	return (r << 16 | g << 8 | b);
+}
+
+static int	parse_colors(char *path, t_game *game_st)
+{
+	int		fd;
+	char	*line;
+	char	*tmp;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	line = get_next_line(fd);
+	while (line)
+	{
+		tmp = line;
+		while (*tmp && (*tmp == ' ' || *tmp == '\t'))
+			tmp++;
+		if (*tmp == 'F' && *(tmp + 1) == ' ')
+			game_st->floor_color = extract_rgb(tmp + 2);
+		else if (*tmp == 'C' && *(tmp + 1) == ' ')
+			game_st->ceiling_color = extract_rgb(tmp + 2);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	if (game_st->floor_color == -1 || game_st->ceiling_color == -1)
+		return (-1);
+	return (0);
+}
+
 int parse_map(char *path, t_game *game_st)
 {
 	int len;
 
+	game_st->floor_color = -1;
+	game_st->ceiling_color = -1;
 	len = ft_strlen(path);
 	if(strncmp(path + len - 4, ".cub", 4) == 0)
 	{
+		if (parse_colors(path, game_st) == -1)
+		{
+			printf("error with color parsing\n");
+			return (-1);
+		}
 		printf("map_w: %d\n", game_st->map_w);
 		printf("map_h: %d\n", game_st->map_h);
 		if(get_map(path, &game_st->map, &game_st->map_h, &game_st->map_w) == -1)
