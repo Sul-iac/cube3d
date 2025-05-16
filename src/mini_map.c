@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
+/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:56:28 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/14 12:43:36 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/16 17:02:51 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void render_minimap(char **map, int w, int h, minilibx_struct *mm, int px, int p
             c = map[y][x];
             if (c == '1')
                 draw_tile(mm, x, y, COL_WALL);
-            else if (c == '0')
+            else if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
                 draw_tile(mm, x, y, COL_FLOOR);
             else
                 draw_tile(mm, x, y, COL_EMPTY);
