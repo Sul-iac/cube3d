@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
+/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:02:11 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/16 22:22:08 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/17 09:26:35 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	render_raycast(t_game *game_st)
 	int			draw_start;
 	int			draw_end;
 	int			color;
-	
+
 	raycast.time = 0;
 	raycast.old_time = 0;
 	x = 0;
@@ -51,7 +51,7 @@ int	render_raycast(t_game *game_st)
 		raycast.camera_x = 2 * x / (double)game_st->mlx_struct.win_w - 1;
 		raycast.ray_dir_x = game_st->player.dir_x + game_st->player.plane_x * raycast.camera_x;
 		raycast.ray_dir_y = game_st->player.dir_y + game_st->player.plane_y * raycast.camera_x;
-		
+
 		if (raycast.ray_dir_x == 0)
 			raycast.delta_dist_x = 1e30;
 		else
@@ -81,7 +81,7 @@ int	render_raycast(t_game *game_st)
 			raycast.step_y = 1;
 			raycast.side_dist_y = (raycast.map_y + 1.0 - game_st->player.y) * raycast.delta_dist_y;
 		}
-		
+
 		while (raycast.hit == 0)
 		{
 			if (raycast.side_dist_x < raycast.side_dist_y)
@@ -103,7 +103,7 @@ int	render_raycast(t_game *game_st)
 			if (game_st->map[raycast.map_y][raycast.map_x] == '1')
 				raycast.hit = 1;
 		}
-		
+
 		if (raycast.hit == 1)
 		{
 			if (raycast.side == 0)
@@ -120,7 +120,7 @@ int	render_raycast(t_game *game_st)
 				draw_end = raycast.line_h / 2 + game_st->mlx_struct.win_h / 2;
 				if (draw_end >= game_st->mlx_struct.win_h)
 					draw_end = game_st->mlx_struct.win_h - 1;
-				
+
 				color = (raycast.side == 1) ? 0xAAAAAA : 0xFFFFFF;
 				draw_vertical_line(&game_st->mlx_struct, x, draw_start, draw_end, color);
 			}

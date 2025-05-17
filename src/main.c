@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
+/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/17 00:37:16 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/17 10:54:50 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void init_struct(t_game *game_st)
 	game_st->player.move_backward = 0;
 	game_st->player.move_left = 0;
 	game_st->player.move_right = 0;
+	game_st->player.rotate_left = 0;
+	game_st->player.rotate_right = 0;
 }
 
 void	init_player_direction(t_game *game_st)

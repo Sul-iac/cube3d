@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mainInclude.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
+/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/17 00:37:16 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/17 11:06:33 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,22 @@
 # define COL_PLAYER 0x00FF0000
 
 // MAC 
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_ESC 53
+// # define KEY_W 13
+// # define KEY_A 0
+// # define KEY_S 1
+// # define KEY_D 2
+// # define KEY_ESC 53
 
 // SULLLIIIACCCCC 
-// # define KEY_W 119
-// # define KEY_A 97
-// # define KEY_S 115
-// # define KEY_D 100
-// # define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_L 65363
+# define KEY_R 65361 // je sais pas quel code tu utilises sur mac ducoup j'ai pas mis pour toi chapeau chapeau
+# define KEY_ESC 65307
+
+# define ROT_SPEED 0.03f
 
 typedef struct
 {
@@ -63,6 +67,8 @@ typedef struct s_player
 	int		move_right;
 	int		move_left;
 	int		move_forward;
+	int		rotate_left;
+	int		rotate_right;
 	float	x;
 	float	y;
 	float	dir_x;

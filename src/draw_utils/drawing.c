@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
+/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:25:31 by vorace32          #+#    #+#             */
-/*   Updated: 2025/05/16 22:19:06 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/17 09:57:51 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void put_pixel(minilibx_struct* data, int x, int y, int color) {
 	{
 		if (!error)
 		{
-			// erreur si les coos sont en dehors de la fenetre -> ca devrait pas arrriver ^^
+			// erreur si les coos sont en dehors de la fenetre -> ca devrait pas arrriver ^^ 
+			// (fils de pute avec des chapeau chapeau de grosse merde la, pointeur de merde) 
 			error = 1;
 		}
 		return;
@@ -48,50 +49,6 @@ void draw_vertical_line(minilibx_struct *mlx_s, int x, int y_start, int y_end, i
 		y++;
 	}
 }
-
-
-// void draw_line(minilibx_struct *mlx_s, int x0, int y0, int x1, int y1, int color) {
-// 	int dx = abs(x1 - x0);
-// 	int dy = abs(y1 - y0);
-// 	int sx = x0 < x1 ? 1 : -1;
-// 	int sy = y0 < y1 ? 1 : -1;
-// 	int err = (dx > dy ? dx : -dy) / 2;
-// 	int e2;
-
-// 	while (1)
-// 	{
-// 		put_pixel(mlx_s, x0, y0, color);
-// 		if (x0 == x1 && y0 == y1)
-// 			break;
-// 		e2 = err;
-// 		if (e2 > -dx)
-// 		{
-// 			err -= dy;
-// 			x0 += sx;
-// 		}
-// 		if (e2 < dy)
-// 		{
-// 			err += dx;
-// 			y0 += sy;
-// 		}
-// 	}
-// }
-
-// void draw_rect(minilibx_struct *mlx_s, int x, int y, int width, int height, int color)
-// {
-// 	draw_line(mlx_s, x, y, x + width, y, color);
-// 	draw_line(mlx_s, x + width, y, x + width, y + height, color);
-// 	draw_line(mlx_s, x + width, y + height, x, y + height, color);
-// 	draw_line(mlx_s, x, y + height, x, y, color);
-// }
-
-// void draw_filled_rect(minilibx_struct *mlx_s, int x, int y, int width, int height, int color)
-// {
-// 	for (int i = 0; i < height; i++)
-// 	{
-// 		draw_line(mlx_s, x, y + i, x + width, y + i, color);
-// 	}
-// }
 
 void draw_circle(minilibx_struct *img, int grid_x, int grid_y, int col)
 {
