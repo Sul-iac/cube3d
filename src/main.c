@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
+/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/16 19:17:59 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/17 00:37:16 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,29 @@ void	init_player_direction(t_game *game_st)
 	{
 		game_st->player.dir_x = 0;
 		game_st->player.dir_y = -1;
+		game_st->player.plane_x = 0.66;
+		game_st->player.plane_y = 0;
 	}
 	else if (game_st->pdir == 'S')
 	{
 		game_st->player.dir_x = 0;
 		game_st->player.dir_y = 1;
+		game_st->player.plane_x = -0.66;
+		game_st->player.plane_y = 0;
 	}
 	else if (game_st->pdir == 'E')
 	{
 		game_st->player.dir_x = 1;
 		game_st->player.dir_y = 0;
+		game_st->player.plane_x = 0;
+		game_st->player.plane_y = 0.66;
 	}
 	else if (game_st->pdir == 'W')
 	{
 		game_st->player.dir_x = -1;
 		game_st->player.dir_y = 0;
+		game_st->player.plane_x = 0;
+		game_st->player.plane_y = -0.66;
 	}
 }
 

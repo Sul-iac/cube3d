@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
+/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:30:42 by vorace32          #+#    #+#             */
-/*   Updated: 2025/05/16 17:59:12 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/17 00:37:16 by vorace32         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	is_wall(t_game *game_st, float x, float y)
 	int	map_x;
 	int	map_y;
 
-    // juste on check si on est pas en dehors de la map ou si on est sur une case 1 dans la nouvelle pos
 	map_x = (int)x;
 	map_y = (int)y;
 	if (map_x < 0 || map_y < 0 || map_x >= game_st->map_w 
@@ -58,15 +57,11 @@ void	update_player_position(t_game *game_st)
 {
 	float	new_x;
 	float	new_y;
-
-	// jsuis oblige de faire un hook pour voir si une touche est enfoncee ou non
-	// jai ajoute le check de wall, ca marche sur la mini map mais il faudra voir si ca marche sur la vrai map
-
+	
 	if (game_st->player.move_forward)
 	{
 		new_x = game_st->player.x + game_st->player.dir_x * game_st->player.move_speed;
 		new_y = game_st->player.y + game_st->player.dir_y * game_st->player.move_speed;
-		// on calcul la nouvelle position du joueur avant de deplacer pour le check wall 
 		if (!is_wall(game_st, new_x, game_st->player.y))
 			game_st->player.x = new_x;
 		if (!is_wall(game_st, game_st->player.x, new_y))
@@ -83,8 +78,8 @@ void	update_player_position(t_game *game_st)
 	}
 	if (game_st->player.move_left)
 	{
-		new_x = game_st->player.x + game_st->player.dir_y * game_st->player.move_speed;
-		new_y = game_st->player.y - game_st->player.dir_x * game_st->player.move_speed;
+		new_x = game_st->player.x - game_st->player.plane_x * game_st->player.move_speed;
+		new_y = game_st->player.y - game_st->player.plane_y * game_st->player.move_speed;
 		if (!is_wall(game_st, new_x, game_st->player.y))
 			game_st->player.x = new_x;
 		if (!is_wall(game_st, game_st->player.x, new_y))
@@ -92,14 +87,13 @@ void	update_player_position(t_game *game_st)
 	}
 	if (game_st->player.move_right)
 	{
-		new_x = game_st->player.x - game_st->player.dir_y * game_st->player.move_speed;
-		new_y = game_st->player.y + game_st->player.dir_x * game_st->player.move_speed;
+		new_x = game_st->player.x + game_st->player.plane_x * game_st->player.move_speed;
+		new_y = game_st->player.y + game_st->player.plane_y * game_st->player.move_speed;
 		if (!is_wall(game_st, new_x, game_st->player.y))
 			game_st->player.x = new_x;
 		if (!is_wall(game_st, game_st->player.x, new_y))
 			game_st->player.y = new_y;
 	}
-	// on update la position du joueur 
 	game_st->px = (int)game_st->player.x;
 	game_st->py = (int)game_st->player.y;
 }
