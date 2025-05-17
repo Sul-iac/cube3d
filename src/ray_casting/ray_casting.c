@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:02:11 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/17 09:26:35 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/17 15:35:01 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,53 @@ static void	draw_floor_ceiling(t_game *game_st, int x)
 	}
 }
 
+void	draw_wall_texture(t_game *game_st, int x, t_raycast *raycast)
+{
+	t_texture	*tex;
+	double		wall_x;
+	int			tex_x; 
+	int			tex_y;
+	int			color;
+	int			y;
+	int			d;
+
+
+	if (raycast->side == 0 && raycast->ray_dir_x < 0)
+		tex = &game_st->we;
+	else if (raycast->side == 0 && raycast->ray_dir_x >= 0)
+		tex = &game_st->ea;
+	else if (raycast->side == 1 && raycast->ray_dir_y < 0)
+		tex = &game_st->no;
+	else
+		tex = &game_st->so;
+	if (raycast->side == 0)
+		wall_x = game_st->player.y + raycast->wall_dist * raycast->ray_dir_y;
+	else
+		wall_x = game_st->player.x + raycast->wall_dist * raycast->ray_dir_x;
+	wall_x -= floor(wall_x);
+
+	tex_x = (int)(wall_x * (double)tex->width);
+	if ((raycast->side == 0 && raycast->ray_dir_x > 0)
+		|| (raycast->side == 1 && raycast->ray_dir_y < 0))
+		tex_x = tex->width - tex_x - 1;
+
+	y = raycast->draw_start;
+	while (y < raycast->draw_end)
+	{
+		d = y * 256 - game_st->mlx_struct.win_h * 128 + raycast->line_h * 128;
+		tex_y = ((d * tex->height) / raycast->line_h) / 256;
+		color = *(int *)(tex->addr + (tex_y * tex->line_len + tex_x * (tex->bpp / 8)));
+		if (raycast->side == 1)
+			color = (color >> 1) & 0x7F7F7F; // ombre sur mur NS
+		put_pixel(&game_st->mlx_struct, x, y, color);
+		y++;
+	}
+}
+
 int	render_raycast(t_game *game_st)
 {
 	t_raycast	raycast;
 	int			x;
-	int			draw_start;
-	int			draw_end;
 	int			color;
 
 	raycast.time = 0;
@@ -81,7 +122,6 @@ int	render_raycast(t_game *game_st)
 			raycast.step_y = 1;
 			raycast.side_dist_y = (raycast.map_y + 1.0 - game_st->player.y) * raycast.delta_dist_y;
 		}
-
 		while (raycast.hit == 0)
 		{
 			if (raycast.side_dist_x < raycast.side_dist_y)
@@ -103,7 +143,6 @@ int	render_raycast(t_game *game_st)
 			if (game_st->map[raycast.map_y][raycast.map_x] == '1')
 				raycast.hit = 1;
 		}
-
 		if (raycast.hit == 1)
 		{
 			if (raycast.side == 0)
@@ -114,15 +153,13 @@ int	render_raycast(t_game *game_st)
 			if (raycast.wall_dist > 0)
 			{
 				raycast.line_h = (int)(game_st->mlx_struct.win_h / raycast.wall_dist);
-				draw_start = -raycast.line_h / 2 + game_st->mlx_struct.win_h / 2;
-				if (draw_start < 0)
-					draw_start = 0;
-				draw_end = raycast.line_h / 2 + game_st->mlx_struct.win_h / 2;
-				if (draw_end >= game_st->mlx_struct.win_h)
-					draw_end = game_st->mlx_struct.win_h - 1;
-
-				color = (raycast.side == 1) ? 0xAAAAAA : 0xFFFFFF;
-				draw_vertical_line(&game_st->mlx_struct, x, draw_start, draw_end, color);
+				raycast.draw_start = -raycast.line_h / 2 + game_st->mlx_struct.win_h / 2;
+				if (raycast.draw_start < 0)
+					raycast.draw_start = 0;
+				raycast.draw_end = raycast.line_h / 2 + game_st->mlx_struct.win_h / 2;
+				if (raycast.draw_end >= game_st->mlx_struct.win_h)
+					raycast.draw_end = game_st->mlx_struct.win_h - 1;
+				draw_wall_texture(game_st, x, &raycast);
 			}
 		}
 		x++;

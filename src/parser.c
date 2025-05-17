@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vorace32 <vorace32000@gmail.com>           +#+  +:+       +#+        */
+/*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 18:31:36 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/16 23:47:25 by vorace32         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:34:00 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,13 @@ char	**create_2d_map(int width, int height, tu_list **rows)
 	len = 0;
 	map = (char **)malloc(sizeof(char *) * (height + 1));
 	if(!map)
-	{
-		printf("error: created_2d_map: cannot allocate 2d map");
-		return(NULL);
-	}
+		return(printf("error: created_2d_map: cannot allocate 2d map"), NULL);
 	map[height] = NULL;
-	while(cur) 
+	while(cur)
 	{
 		map[y] = (char *)malloc(width + 1);
-		if(!map[y]) 
-		{
-			printf("error: created_2d_map: cannot allocate map[y]");
-			return(NULL);
-		}
+		if(!map[y])
+			return(printf("error: created_2d_map: cannot allocate map[y]"), NULL);
 		src = (char *)cur->content;
 		len = ft_strlen(src);
 		if(len && src[len - 1] == '\n')
@@ -75,7 +69,6 @@ static int is_map_line(char *src)
     {
         if (*src == '0' || *src == '1')
 			has_wall = 1;
-		
 		else if(*src != 'N' && *src != 'S' && *src != 'E' && *src != 'W' && *src != ' ')
             return (0);
         src++;
@@ -167,6 +160,36 @@ static int	extract_rgb(char *line)
 	return (r << 16 | g << 8 | b);
 }
 
+int	parse_textures(char *path, t_game *game_st)
+{
+	int		fd;
+	char	*line;
+	char	*tmp;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	while ((line = get_next_line(fd)))
+	{
+		tmp = line;
+		while (*tmp && (*tmp == ' ' || *tmp == '\t'))
+			tmp++;
+		if (ft_strncmp(tmp, "NO ", 3) == 0)
+			game_st->no_path = ft_strtrim(tmp + 2, " \t\n\r");
+		else if (ft_strncmp(tmp, "SO ", 3) == 0)
+			game_st->so_path = ft_strtrim(tmp + 2, " \t\n\r");
+		else if (ft_strncmp(tmp, "WE ", 3) == 0)
+			game_st->we_path = ft_strtrim(tmp + 2, " \t\n\r");
+		else if (ft_strncmp(tmp, "EA ", 3) == 0)
+			game_st->ea_path = ft_strtrim(tmp + 2, " \t\n\r");
+		free(line);
+	}
+	close(fd);
+	if (!game_st->no_path || !game_st->so_path || !game_st->we_path || !game_st->ea_path)
+		return (printf("error: parse_texture: missing texture path\n"), -1);
+	return (0);
+}
+
 static int	parse_colors(char *path, t_game *game_st)
 {
 	int		fd;
@@ -191,7 +214,7 @@ static int	parse_colors(char *path, t_game *game_st)
 	}
 	close(fd);
 	if (game_st->floor_color == -1 || game_st->ceiling_color == -1)
-		return (-1);
+		return (printf("error: parse_colors: no colors found\n"), -1);
 	return (0);
 }
 
@@ -204,20 +227,14 @@ int parse_map(char *path, t_game *game_st)
 	len = ft_strlen(path);
 	if(strncmp(path + len - 4, ".cub", 4) == 0)
 	{
+		if (parse_textures(path, game_st) == -1)
+			return (printf("error: parse_map: error with texture parsing\n"), -1);
 		if (parse_colors(path, game_st) == -1)
-		{
-			printf("error with color parsing\n");
-			return (-1);
-		}
-		printf("map_w: %d\n", game_st->map_w);
-		printf("map_h: %d\n", game_st->map_h);
+			return (printf("error: parse_map: error with color parsing\n"), -1);
 		if(get_map(path, &game_st->map, &game_st->map_h, &game_st->map_w) == -1)
-		{
-			printf("error with get_map\n");
-			return(-1);
-		}
+			return(printf("error: parse_map: cannot get_map\n"), -1);
 		if(validate_map(game_st, game_st->map, game_st->map_h, game_st->map_w) == -1)
-			return(-1);
+			return(printf("error: parse_map: invalid map\n"), -1);
 		return(0);
 	}
 	printf("Map must be <map>.cub\n");

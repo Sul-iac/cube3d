@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:30:42 by vorace32          #+#    #+#             */
-/*   Updated: 2025/05/17 11:05:51 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/17 12:03:28 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	key_press(int keycode, t_game *game_st)
 		game_st->player.rotate_right = 1;
 	else if (keycode == KEY_ESC)
 		exit(0);
-	printf("keycode: %d\n", keycode);
 	return (0);
 }
 
@@ -66,7 +65,8 @@ void	update_player_position(t_game *game_st)
 {
 	float	new_x;
 	float	new_y;
-
+	float	old_dir_x;
+	float	old_plane_x;
 
 	if (game_st->player.move_forward)
 	{
@@ -106,21 +106,21 @@ void	update_player_position(t_game *game_st)
 	}
 	if(game_st->player.rotate_left)
 	{
-		float old_dir_x = game_st->player.dir_x;
+		old_dir_x = game_st->player.dir_x;
 		game_st->player.dir_x = game_st->player.dir_x * cos(ROT_SPEED) - game_st->player.dir_y * sin(ROT_SPEED);
 		game_st->player.dir_y = old_dir_x * sin(ROT_SPEED) + game_st->player.dir_y * cos(ROT_SPEED);
 		
-		float old_plane_x = game_st->player.plane_x;
+		old_plane_x = game_st->player.plane_x;
 		game_st->player.plane_x = game_st->player.plane_x * cos(ROT_SPEED) - game_st->player.plane_y * sin(ROT_SPEED);
 		game_st->player.plane_y = old_plane_x * sin(ROT_SPEED) + game_st->player.plane_y * cos(ROT_SPEED);
 	}
 	if(game_st->player.rotate_right)
 	{
-		float old_dir_x = game_st->player.dir_x;
+		old_dir_x = game_st->player.dir_x;
 		game_st->player.dir_x = game_st->player.dir_x * cos(-ROT_SPEED) - game_st->player.dir_y * sin(-ROT_SPEED);
 		game_st->player.dir_y = old_dir_x * sin(-ROT_SPEED) + game_st->player.dir_y * cos(-ROT_SPEED);
 
-		float old_plane_x = game_st->player.plane_x;
+		old_plane_x = game_st->player.plane_x;
 		game_st->player.plane_x = game_st->player.plane_x * cos(-ROT_SPEED) - game_st->player.plane_y * sin(-ROT_SPEED);
 		game_st->player.plane_y = old_plane_x * sin(-ROT_SPEED) + game_st->player.plane_y * cos(-ROT_SPEED);
 	}

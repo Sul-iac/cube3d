@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/17 11:06:33 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/17 15:52:54 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@
 
 typedef struct
 {
-	void				*ptr;	
+	void				*mlx_init;
+	void				*mlx_img;
+	void				*mlx_windows;
 	char				*address;
 	int					endian;
 	int					line_length;
@@ -87,6 +89,8 @@ typedef struct s_raycast
 	int		step_x;
 	int		step_y;
 	int		line_h;
+	int		draw_start;
+	int		draw_end;
 	double	side_dist_x;
 	double	side_dist_y;
 	double	delta_dist_x;
@@ -99,6 +103,17 @@ typedef struct s_raycast
 	double	wall_dist;
 }				t_raycast;
 
+typedef struct s_texture
+{
+    void    *img;
+    char    *addr;
+    int     width;
+    int     height;
+    int     bpp;
+    int     line_len;
+    int     endian;
+}				t_texture;
+
 typedef struct 	s_game
 {
 	char			**map;
@@ -109,10 +124,18 @@ typedef struct 	s_game
 	char			pdir;
 	void			*mlx_init;
 	void			*mlx_windows;
+	t_texture		ea;
+	t_texture		no;
+	t_texture		we;
+	t_texture		so;
 	t_player		player;
 	minilibx_struct	mlx_struct;
 	int				floor_color;
 	int				ceiling_color;
+	char			*no_path;
+	char			*so_path;
+	char			*we_path;
+	char			*ea_path;
 }				t_game;
 
 
@@ -126,6 +149,7 @@ void draw_vertical_line(minilibx_struct *mlx_s, int x, int y_start, int y_end, i
 
 //init
 void init_struct(t_game *game_st);
+void init_texture_struct(t_game *game_st);
 
 // parser
 int parse_map(char *path, t_game *game_st);
@@ -135,6 +159,7 @@ int check_closed(char **map, int width, int height, int px, int py);
 int flood(char **map_copy, int x, int y, int w, int h);
 int check_borders(char **map, int width, int height);
 int check_character(char **map, int w, int h, int *px, int *py, char *pdir);
+int	parse_textures(char *path, t_game *game_st);
 static int is_map_line(char *s);
 
 // evident
