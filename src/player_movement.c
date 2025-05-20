@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:30:42 by vorace32          #+#    #+#             */
-/*   Updated: 2025/05/17 12:03:28 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/20 11:15:47 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	key_release(int keycode, t_game *game_st)
 	return (0);
 }
 
-static int	is_wall(t_game *game_st, float x, float y)
+int	is_wall(t_game *game_st, float x, float y)
 {
 	int	map_x;
 	int	map_y;

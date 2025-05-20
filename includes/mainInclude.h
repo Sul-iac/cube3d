@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/17 15:52:54 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/20 11:16:16 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,12 @@ typedef struct s_texture
     int     bpp;
     int     line_len;
     int     endian;
+	int		tex_x; 
+	int		tex_y;
+	int		color;
+	int		y;
+	int		d;
+	double	wall_x;
 }				t_texture;
 
 typedef struct 	s_game
@@ -160,7 +166,10 @@ int flood(char **map_copy, int x, int y, int w, int h);
 int check_borders(char **map, int width, int height);
 int check_character(char **map, int w, int h, int *px, int *py, char *pdir);
 int	parse_textures(char *path, t_game *game_st);
-static int is_map_line(char *s);
+int is_map_line(char *s);
+int	extract_rgb(char *line);
+int	parse_colors(char *path, t_game *game_st);
+int	is_wall(t_game *game_st, float x, float y);
 
 // evident
 void render_minimap(char **map, int w, int h, minilibx_struct *mm, float player_x, float player_y);
@@ -173,7 +182,12 @@ void update_player_position(t_game *game_st);
 
 
 // RC
-int render_raycast(t_game *game_st);
+int 	render_raycast(t_game *game_st);
+void	init_delta_dist(t_raycast* raycast);
+void	draw_wall_texture(t_game *game_st, int x, t_raycast *raycast);
+void	init_texture_direction(t_raycast *raycast, t_game *game_st, t_texture *tex, int x);
+void	draw_pixel_wall(t_raycast *raycast, t_game *game_st, t_texture *tex, int x);
+void	draw_floor_ceiling(t_game *game_st, int x);
 
 
 #endif

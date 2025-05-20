@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:25:31 by vorace32          #+#    #+#             */
-/*   Updated: 2025/05/17 09:57:51 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/20 11:00:05 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@ void put_pixel(minilibx_struct* data, int x, int y, int color) {
 	if (x < 0 || x >= (int)data->win_w || y < 0 || y >= (int)data->win_h)
 	{
 		if (!error)
-		{
-			// erreur si les coos sont en dehors de la fenetre -> ca devrait pas arrriver ^^ 
-			// (fils de pute avec des chapeau chapeau de grosse merde la, pointeur de merde) 
 			error = 1;
-		}
 		return;
 	}
 	dst = data->address + (y * data->line_length + x * (data->bits_per_pixel / 8));
@@ -76,4 +72,22 @@ void draw_circle(minilibx_struct *img, int grid_x, int grid_y, int col)
         }
         py++;
     }
+}
+
+void	draw_floor_ceiling(t_game *game_st, int x)
+{
+	int	y;
+
+	y = 0;
+	while (y < game_st->mlx_struct.win_h / 2)
+	{
+		put_pixel(&game_st->mlx_struct, x, y, game_st->ceiling_color);
+		y++;
+	}
+	y = game_st->mlx_struct.win_h / 2;
+	while (y < game_st->mlx_struct.win_h)
+	{
+		put_pixel(&game_st->mlx_struct, x, y, game_st->floor_color);
+		y++;
+	}
 }
