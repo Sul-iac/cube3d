@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:02:11 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/17 15:35:01 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/20 10:04:47 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,34 @@ void	draw_wall_texture(t_game *game_st, int x, t_raycast *raycast)
 	else
 		wall_x = game_st->player.x + raycast->wall_dist * raycast->ray_dir_x;
 	wall_x -= floor(wall_x);
-
 	tex_x = (int)(wall_x * (double)tex->width);
 	if ((raycast->side == 0 && raycast->ray_dir_x > 0)
 		|| (raycast->side == 1 && raycast->ray_dir_y < 0))
 		tex_x = tex->width - tex_x - 1;
-
 	y = raycast->draw_start;
+	if (!tex || !tex->addr)
+	{
+		printf("Texture not loaded properly.\n");
+		return;
+	}
 	while (y < raycast->draw_end)
 	{
+		// ici il y a 256 et 128 pour que les calculs restent des ints
+		// et qu'on se retrouve pas avec des calculs de floats qui clc
 		d = y * 256 - game_st->mlx_struct.win_h * 128 + raycast->line_h * 128;
 		tex_y = ((d * tex->height) / raycast->line_h) / 256;
+		if (raycast->line_h == 0)
+			return;
+		// c'est ce if la que j'ai rajoute, je checkais pas les overflows de textures
+		// donc y++ et on continue si on est dans les limites, c'est pas beau mais ca passe
+		if (tex_x < 0 || tex_x >= tex->width || tex_y < 0 || tex_y >= tex->height)
+		{
+		    y++;
+		    continue;
+		}
 		color = *(int *)(tex->addr + (tex_y * tex->line_len + tex_x * (tex->bpp / 8)));
 		if (raycast->side == 1)
-			color = (color >> 1) & 0x7F7F7F; // ombre sur mur NS
+			color = (color >> 1) & 0x7F7F7F;
 		put_pixel(&game_st->mlx_struct, x, y, color);
 		y++;
 	}
@@ -139,7 +153,10 @@ int	render_raycast(t_game *game_st)
 			
 			if (raycast.map_x < 0 || raycast.map_x >= game_st->map_w
 				|| raycast.map_y < 0 || raycast.map_y >= game_st->map_h)
+			{
+				raycast.hit = 1;
 				break ;
+			}
 			if (game_st->map[raycast.map_y][raycast.map_x] == '1')
 				raycast.hit = 1;
 		}
