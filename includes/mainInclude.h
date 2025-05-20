@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:25:32 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/20 11:16:16 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/20 13:21:29 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,16 @@ typedef struct s_texture
 	double	wall_x;
 }				t_texture;
 
+typedef struct	s_get_map
+{
+	int		fd;
+	char	*get_line;
+	tu_list *rows;
+	tu_list *node_next_line;
+	int 	len;
+	int		in_map;	
+}				t_get_map;
+
 typedef struct 	s_game
 {
 	char			**map;
@@ -158,27 +168,41 @@ void init_struct(t_game *game_st);
 void init_texture_struct(t_game *game_st);
 
 // parser
-int parse_map(char *path, t_game *game_st);
-int get_map(char *path, char ***map, int *height, int *width);
-int validate_map(t_game *game_st, char **map, int h, int w);
-int check_closed(char **map, int width, int height, int px, int py);
-int flood(char **map_copy, int x, int y, int w, int h);
-int check_borders(char **map, int width, int height);
-int check_character(char **map, int w, int h, int *px, int *py, char *pdir);
-int	parse_textures(char *path, t_game *game_st);
-int is_map_line(char *s);
-int	extract_rgb(char *line);
-int	parse_colors(char *path, t_game *game_st);
-int	is_wall(t_game *game_st, float x, float y);
+int		parse_map(char *path, t_game *game_st);
+int		get_map(char *path, char ***map, int *height, int *width);
+int		validate_map(t_game *game_st);
+int		check_closed(t_game *game_st);
+int		flood(char **map_copy, int x, int y, t_game *game_st);
+int		check_borders(t_game *game_st);
+int		check_character(t_game *game_st);
+int		parse_textures(char *path, t_game *game_st);
+int		is_map_line(char *s);
+int		extract_rgb(char *line);
+int		parse_colors(char *path, t_game *game_st);
+int		is_wall(t_game *game_st, float x, float y);
+void	split_rgb(int *r, int *g, int *b, char **split);
+char	**create_2d_map(int width, int height, tu_list **rows);
+void	malloc_and_send_map(tu_list *cur, char **map, int width);
+void	init_path_texture(t_game *game_st, int fd);
+int		get_line_to_list(t_get_map *get_map, int *width, int *height);
+void	init_get_map_struct(t_get_map *get_map, char *path);
+void	free_map(char **map, int h);
+int		character_position(t_game *game_st, int *player_count, int y);
+int		check_character(t_game *game_st);
+int		check_character(t_game *game_st);
 
-// evident
+
+
+
+
+
+// mm
 void render_minimap(char **map, int w, int h, minilibx_struct *mm, float player_x, float player_y);
 
 //hook
 int key_press(int keycode, t_game *game_st);
 int key_release(int keycode, t_game *game_st);
 void update_player_position(t_game *game_st);
-
 
 
 // RC

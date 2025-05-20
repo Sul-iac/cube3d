@@ -14,18 +14,18 @@
 
 char	*ft_strcpy_and_fill(char *dest, char *src, int width, int len)
 {
-	int i; 
+	int	i;
 
 	i = -1;
-	while(++i < len)
-		dest[i] = src[i];		
-	while(i < width)
+	while (++i < len)
+		dest[i] = src[i];
+	while (i < width)
 	{
 		dest[i] = ' ';
 		i++;
 	}
 	dest[width] = '\0';
-	return(dest);
+	return (dest);
 }
 
 void	malloc_and_send_map(tu_list *cur, char **map, int width)
@@ -36,17 +36,17 @@ void	malloc_and_send_map(tu_list *cur, char **map, int width)
 
 	y = 0;
 	len = 0;
-	while(cur)
+	while (cur)
 	{
 		map[y] = (char *)malloc(width + 1);
-		if(!map[y])
+		if (!map[y])
 		{
 			printf("error: created_2d_map: cannot allocate map[y]");
-			return;
+			return ;
 		}
 		src = (char *)cur->content;
 		len = ft_strlen(src);
-		if(len && src[len - 1] == '\n')
+		if (len && src[len - 1] == '\n')
 			len--;
 		ft_strcpy_and_fill(map[y], src, width, len);
 		cur = cur->next;
@@ -60,15 +60,15 @@ char	**create_2d_map(int width, int height, tu_list **rows)
 	int		len;
 	char	*src;
 	char	**map;
-	tu_list *cur;
+	tu_list	*cur;
 
 	cur = *rows;
 	len = 0;
 	map = (char **)malloc(sizeof(char *) * (height + 1));
-	if(!map)
-		return(printf("error: created_2d_map: cannot allocate 2d map"), NULL);
+	if (!map)
+		return (printf("error: created_2d_map: cannot allocate 2d map"), NULL);
 	malloc_and_send_map(cur, map, width);
 	map[height] = NULL;
 	ft_lstclear(rows, free);
-	return(map);
+	return (map);
 }

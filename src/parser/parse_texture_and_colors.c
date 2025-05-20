@@ -6,11 +6,18 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 11:13:17 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/20 11:13:47 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/20 13:39:26 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mainInclude.h"
+
+void	split_rgb(int *r, int *g, int *b, char **split)
+{
+	*r = ft_atoi(split[0]);
+	*g = ft_atoi(split[1]);
+	*b = ft_atoi(split[2]);
+}
 
 int	extract_rgb(char *line)
 {
@@ -27,9 +34,7 @@ int	extract_rgb(char *line)
 	free(trimmed);
 	if (!split || !split[0] || !split[1] || !split[2])
 		return (-1);
-	r = ft_atoi(split[0]);
-	g = ft_atoi(split[1]);
-	b = ft_atoi(split[2]);
+	split_rgb(&r, &g, &b, split);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
 		while (split && *split)
@@ -43,16 +48,13 @@ int	extract_rgb(char *line)
 	return (r << 16 | g << 8 | b);
 }
 
-int	parse_textures(char *path, t_game *game_st)
+void	init_path_texture(t_game *game_st, int fd)
 {
-	int		fd;
-	char	*line;
 	char	*tmp;
+	char	*line;
 
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (-1);
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		tmp = line;
 		while (*tmp && (*tmp == ' ' || *tmp == '\t'))
@@ -66,9 +68,23 @@ int	parse_textures(char *path, t_game *game_st)
 		else if (ft_strncmp(tmp, "EA ", 3) == 0)
 			game_st->ea_path = ft_strtrim(tmp + 2, " \t\n\r");
 		free(line);
+		line = get_next_line(fd);
 	}
+}
+
+int	parse_textures(char *path, t_game *game_st)
+{
+	int		fd;
+	char	*line;
+	char	*tmp;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	init_path_texture(game_st, fd);
 	close(fd);
-	if (!game_st->no_path || !game_st->so_path || !game_st->we_path || !game_st->ea_path)
+	if (!game_st->no_path || !game_st->so_path || !game_st->we_path
+		|| !game_st->ea_path)
 		return (printf("error: parse_texture: missing texture path\n"), -1);
 	return (0);
 }

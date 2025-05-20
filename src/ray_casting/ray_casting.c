@@ -18,10 +18,11 @@ void	init_raycast_struct(t_raycast *raycast, t_game *game_st, int x)
 	raycast->map_x = (int)game_st->player.x;
 	raycast->map_y = (int)game_st->player.y;
 	raycast->camera_x = 2 * x / (double)game_st->mlx_struct.win_w - 1;
-	raycast->ray_dir_x = game_st->player.dir_x + game_st->player.plane_x * raycast->camera_x;
-	raycast->ray_dir_y = game_st->player.dir_y + game_st->player.plane_y * raycast->camera_x;
-
-} 
+	raycast->ray_dir_x = game_st->player.dir_x + game_st->player.plane_x
+		* raycast->camera_x;
+	raycast->ray_dir_y = game_st->player.dir_y + game_st->player.plane_y
+		* raycast->camera_x;
+}
 
 // init the delta (dist between two points in square)
 // and init the vectors movements
@@ -31,22 +32,26 @@ void	init_2d_vector(t_raycast *raycast, t_game *game_st)
 	if (raycast->ray_dir_x < 0)
 	{
 		raycast->step_x = -1;
-		raycast->side_dist_x = (game_st->player.x - raycast->map_x) * raycast->delta_dist_x;
+		raycast->side_dist_x = (game_st->player.x - raycast->map_x)
+			* raycast->delta_dist_x;
 	}
 	else
 	{
 		raycast->step_x = 1;
-		raycast->side_dist_x = (raycast->map_x + 1.0 - game_st->player.x) * raycast->delta_dist_x;
+		raycast->side_dist_x = (raycast->map_x + 1.0 - game_st->player.x)
+			* raycast->delta_dist_x;
 	}
 	if (raycast->ray_dir_y < 0)
 	{
 		raycast->step_y = -1;
-		raycast->side_dist_y = (game_st->player.y - raycast->map_y) * raycast->delta_dist_y;
+		raycast->side_dist_y = (game_st->player.y - raycast->map_y)
+			* raycast->delta_dist_y;
 	}
 	else
 	{
 		raycast->step_y = 1;
-		raycast->side_dist_y = (raycast->map_y + 1.0 - game_st->player.y) * raycast->delta_dist_y;
+		raycast->side_dist_y = (raycast->map_y + 1.0 - game_st->player.y)
+			* raycast->delta_dist_y;
 	}
 }
 
@@ -68,7 +73,6 @@ void	dda_algorythm(t_raycast *raycast, t_game *game_st)
 			raycast->map_y += raycast->step_y;
 			raycast->side = 1;
 		}
-		
 		if (raycast->map_x < 0 || raycast->map_x >= game_st->map_w
 			|| raycast->map_y < 0 || raycast->map_y >= game_st->map_h)
 		{
@@ -91,11 +95,14 @@ void	render_wall_dist(t_raycast *raycast, t_game *game_st, int x)
 			raycast->wall_dist = (raycast->side_dist_y - raycast->delta_dist_y);
 		if (raycast->wall_dist > 0)
 		{
-			raycast->line_h = (int)(game_st->mlx_struct.win_h / raycast->wall_dist);
-			raycast->draw_start = -raycast->line_h / 2 + game_st->mlx_struct.win_h / 2;
+			raycast->line_h = (int)(game_st->mlx_struct.win_h
+					/ raycast->wall_dist);
+			raycast->draw_start = -raycast->line_h / 2
+				+ game_st->mlx_struct.win_h / 2;
 			if (raycast->draw_start < 0)
 				raycast->draw_start = 0;
-			raycast->draw_end = raycast->line_h / 2 + game_st->mlx_struct.win_h / 2;
+			raycast->draw_end = raycast->line_h / 2 + game_st->mlx_struct.win_h
+				/ 2;
 			if (raycast->draw_end >= game_st->mlx_struct.win_h)
 				raycast->draw_end = game_st->mlx_struct.win_h - 1;
 			draw_wall_texture(game_st, x, raycast);

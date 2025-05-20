@@ -6,7 +6,7 @@
 /*   By: qbarron <qbarron@student.42perpignan.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:37:03 by qbarron           #+#    #+#             */
-/*   Updated: 2025/05/17 16:16:32 by qbarron          ###   ########.fr       */
+/*   Updated: 2025/05/20 13:35:12 by qbarron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void init_texture_struct(t_game *game_st)
 	game_st->we.addr = mlx_get_data_addr(game_st->we.img, &game_st->we.bpp, 
 			&game_st->we.line_len, &game_st->we.endian);
 }
-
 
 void init_struct(t_game *game_st)
 {
@@ -102,7 +101,8 @@ int main(int argc, char **argv)
 	t_game			game_st;
 	minilibx_struct mlx_s;
 	
-	if(argc != 2) {
+	if(argc != 2) 
+	{
 		printf("Error: bad arguments\n");
 		return(-1);
 	}
